@@ -1,6 +1,10 @@
-import userSchema from "../models/user.schema.js";
+import User from "../models/user.schema.js";
 
-exports.createUser = async (req, res) => {
+export const home = async (req, res) => {
+  res.send(`<h1>App is working</h1>`)
+}
+
+export const createUser = async (req, res) => {
     try {
         const { name, email } = req.body;
 
@@ -8,7 +12,7 @@ exports.createUser = async (req, res) => {
             throw new Error("Name and Email are required");
         }
           
-        const userExists = await UserActivation.findOne({email});
+        const userExists = await User.findOne({email});
 
         if(userExists) {
             throw new Error("Email already exists");
@@ -33,7 +37,7 @@ exports.createUser = async (req, res) => {
     }
 }
 
-exports.getUsers = async(req, res) => {
+export const getUsers = async(req, res) => {
   try {
     const user = await User.find()
 
@@ -51,7 +55,7 @@ exports.getUsers = async(req, res) => {
   }
 }
 
-exports.editUser = async(req, res) => {
+export const editUser = async(req, res) => {
    try {
       const user = await User.findByIdAndUpdate(req.params.id, req.body)
 
@@ -69,7 +73,7 @@ exports.editUser = async(req, res) => {
    }
 }
 
-exports.deleteUser = async(req, res) => {
+export const deleteUser = async(req, res) => {
   try {
     const userId = req.params.id;
 
